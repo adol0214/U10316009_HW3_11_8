@@ -85,11 +85,58 @@ class Transaction{
 	double amount;
 	double balance;
 	String description;
+	Transaction(){
+		date = new Date();
+		type = '\u0000';
+		amount = 0;
+		balance = 0;
+		description = "";
+	}
+	
 	Transaction(char newType, double newAmount,double newBalance, String newDescription){
+		date = new Date();
 		type = newType;
 		amount = newAmount;
 		balance = newBalance;
 		description = newDescription;
 	}
 	
-}
+	setDate(){
+		date = new Date();
+	}
+	
+	setType(char newType){
+		type = newType;
+	}
+	
+	setAmount(double newAmount){
+		amount = newAmount;
+	}
+	
+	setBalance(double newBalance){
+		balance = newBalance;
+	}
+	
+	setDescription(String newDescription){
+		description = newDescription;
+	}
+	
+	getDate(){
+		return date;
+	}
+	
+	getType(char newType){
+		return type;
+	}
+	
+	getAmount(double newAmount){
+		return amount;
+	}
+	
+	getBalance(double newBalance){
+		return balance;
+	}
+	
+	getDescription(String newDescription){
+		return "\nType : " + getType() + "\nAmount : " + getAmount() + "\nBalance : " + getBalance() + "\nDate : " + getDate();
+	}
