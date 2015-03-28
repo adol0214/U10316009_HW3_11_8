@@ -4,10 +4,26 @@
  * Ex: 11.8
  */
 import java.util.Date;
+import java.util.ArrayList;
 
 public class Homework3 {
 	public static void main (String[] args){
-		
+		Account account1 = new Account(1122,1000,"George");
+
+		account1.setAnnualInterestRate(1.5);
+
+		//invoke deposit method
+		account1.deposit(30);		
+		account1.deposit(40);
+		account1.deposit(50);
+
+		//invoke withdraw method
+		account1.withdraw(5);
+		account1.withdraw(4);
+		account1.withdraw(2);
+
+		//print result
+		System.out.println(account1.toString());
 	}
 }
 
@@ -17,8 +33,11 @@ class Account {
 	private double balance = 0;
 	private double annualInterestRate = 0;
 	private Date dateCreated;
-	String name;
-	Account(String newName, int newId, double newBalance){
+	private String name;
+	ArrayList<Transaction> transaction = new ArrayList<Transaction>();
+	int numbers = 0;
+	//constructor
+	Account(int newId, double newBalance, String newName){
 		name = newName;
 		id = newId;
 		balance = newBalance;
@@ -29,6 +48,7 @@ class Account {
 		balance = newBalance;
 	}
 	
+	//set get
 	void setId(int newId){
 		id = newId;
 	}
@@ -67,10 +87,16 @@ class Account {
 
 	void withdraw(double amount){
 		balance -= amount;
+		transaction.add(new Transaction('W', amount, balance, "end"));
+		System.out.println("\nDetail: " + ((Transaction)transaction.get(numbers)).getDescription());
+		numbers ++;
 	}
 
 	void deposit(double amount){
 		balance += amount;
+		transaction.add(new Transaction('D', amount, balance, "end"));
+		System.out.println("\nDetail: " + ((Transaction)transaction.get(numbers)).getDescription());
+		numbers ++;
 	}
 
 	public String toString(){
@@ -80,11 +106,13 @@ class Account {
 }
 
 class Transaction{
-	Date date;
-	char type;
-	double amount;
-	double balance;
-	String description;
+	private Date date;
+	private char type;
+	private double amount;
+	private double balance;
+	private String description;
+	
+	//constructor
 	Transaction(){
 		date = new Date();
 		type = '\u0000';
@@ -101,42 +129,46 @@ class Transaction{
 		description = newDescription;
 	}
 	
-	setDate(){
+	
+	//set get
+	void setDate(){
 		date = new Date();
 	}
 	
-	setType(char newType){
+	void setType(char newType){
 		type = newType;
 	}
 	
-	setAmount(double newAmount){
+	void setAmount(double newAmount){
 		amount = newAmount;
 	}
 	
-	setBalance(double newBalance){
+	void setBalance(double newBalance){
 		balance = newBalance;
 	}
 	
-	setDescription(String newDescription){
+	void setDescription(String newDescription){
 		description = newDescription;
 	}
 	
-	getDate(){
+	Date getDate(){
 		return date;
 	}
 	
-	getType(char newType){
+	char getType(){
 		return type;
 	}
 	
-	getAmount(double newAmount){
+	double getAmount(){
 		return amount;
 	}
 	
-	getBalance(double newBalance){
+	double getBalance(){
 		return balance;
 	}
 	
-	getDescription(String newDescription){
+	String getDescription(){
 		return "\nType : " + getType() + "\nAmount : " + getAmount() + "\nBalance : " + getBalance() + "\nDate : " + getDate();
 	}
+
+}
